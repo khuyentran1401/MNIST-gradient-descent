@@ -38,6 +38,7 @@ if __name__ == '__main__':
 	pred = prediction(B, X_test)
 
 	print(pred)
-	print(error(pred, y_test))
+	print('err', error(pred, y_test))
+	print('acc', 1.0 - error(pred, y_test))
 	print(confusion_matrix(y_test, pred))
 
