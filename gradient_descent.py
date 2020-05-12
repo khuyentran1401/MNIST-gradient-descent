@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.metrics import confusion_matrix
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
@@ -51,7 +52,7 @@ def grad(B, pi, X, y):
 
 	for i in range(n):
 
-		grad += (y[i] - pi[i]) * X[i,:]
+		grad -= (y[i] - pi[i]) * X[i,:]
 
 	return grad
 
@@ -151,8 +152,8 @@ if __name__== '__main__':
 	
 	
 	B_0 = np.random.randint(-10, 10, size=X_train.shape[1]+1)
-	tol_B = 10**(-6)
-	tol_f = 10**(-6)
+	tol_B = 10**(-3)
+	tol_f = 10**(-3)
 	max_iter = 10**5
 	alpha = 10**(-3)
 
@@ -162,10 +163,6 @@ if __name__== '__main__':
 	pred = prediction(B, X_test)
 
 	print(pred)
-	print(error(pred, y_test))
-
-
-
-
-
-
+	print('err', error(pred, y_test))
+	print('acc', 1.0 - error(pred, y_test))
+	print(confusion_matrix(y_test, pred))
